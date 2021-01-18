@@ -3,26 +3,41 @@ package com.kablanfatih.company.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
+@Entity
 @EqualsAndHashCode(of = {"id"})
-@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Table(name = "company_users")
-public class CompanyUsers extends BaseEntity {
+public class CompanyUsers implements Serializable {
+
+   public CompanyUsers(Long companyId, Long userId){
+       this.companyId = companyId;
+       this.userId = userId;
+   }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id = UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "company_id")
-    private String companyId = UUID.randomUUID().toString();
+    @Setter
+    private Long companyId;
 
     @Column(name = "user_id")
-    private String userId = UUID.randomUUID().toString();
+    @Setter
+    private Long userId;
 
+    @JoinColumn(name = "companies")
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Company> companies;
 
+    @JoinColumn(name = "users")
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<User> users;
 }
