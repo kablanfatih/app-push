@@ -1,15 +1,16 @@
 package com.kablanfatih.company.controller;
 
-import com.kablanfatih.company.entity.Company;
+import com.kablanfatih.company.dto.CompanyDto;
+import com.kablanfatih.company.repository.CompanyRepository;
 import com.kablanfatih.company.service.CompanyService;
+import com.kablanfatih.company.util.TPage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.kablanfatih.company.util.ApiPaths;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -18,14 +19,32 @@ import javax.validation.Valid;
 public class CompanyController {
 
     private final CompanyService service;
+    private final CompanyRepository repository;
+
+    @GetMapping
+    public ResponseEntity<TPage<CompanyDto>> getAllByPagination(Pageable pageable) {
+        TPage<CompanyDto> data = service.getAllPageable(pageable);
+        return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CompanyDto> getById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.getById(id));
+    }
 
     @PostMapping
-    public ResponseEntity<Company> save(@Valid @RequestBody Company company) {
+    public ResponseEntity<CompanyDto> save(@Valid @RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(service.save(companyDto));
+    }
 
-        Company a = new Company();
-        a.setName(company.getName());
-        a.setAddress(company.getAddress());
-        a.setAppId(company.getAppId());
-        return ResponseEntity.ok(service.save(a));
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<CompanyDto> update(@PathVariable("id") Long id, @Valid @RequestBody CompanyDto companyDto){
+        return ResponseEntity.ok(service.update(id, companyDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.delete(id));
     }
 }

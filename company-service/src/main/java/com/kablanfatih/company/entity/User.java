@@ -1,11 +1,8 @@
 package com.kablanfatih.company.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @EqualsAndHashCode(of = {"id"})
@@ -15,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @Table(name = "users", indexes = {@Index(name = "idx_email", columnList = "email")})
-public class User extends BaseEntity {
+public class User extends Auditable<String>  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +39,7 @@ public class User extends BaseEntity {
     @Column(name = "app_token")
     private String appToken;
 
-    @JoinColumn(name = "company_users")
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<CompanyUsers> companyUsers;
+    @JoinColumn(name = "company", foreignKey = @ForeignKey(name = "fk_company_id"))
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Company company;
 }

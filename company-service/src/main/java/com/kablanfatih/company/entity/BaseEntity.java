@@ -1,19 +1,24 @@
 package com.kablanfatih.company.entity;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BaseEntity implements Serializable {
+@Data
+@MappedSuperclass
+@Getter
+@Setter
+public abstract class BaseEntity implements Serializable {
 
     @Column(name = "created_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     @Column(name = "updated_at")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
     @Column(name = "status")

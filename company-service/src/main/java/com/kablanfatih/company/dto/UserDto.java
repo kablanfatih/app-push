@@ -19,4 +19,5 @@ public class UserDto {
     private String city;
     private String district;
     private String appToken;
+    private CompanyDto company;
 }
