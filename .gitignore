@@ -1,3 +1,4 @@
 /.idea/
 /company-service/target/classes/
 /config-server/target/
+/eureka-server/target/classes/
