@@ -34,8 +34,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto getById(Long id) {
-        return modelMapper.map(repository.findById(id), UserDto.class);
+        User user = repository.getOne(id);
+        return modelMapper.map(user, UserDto.class);
     }
 
     @Transactional

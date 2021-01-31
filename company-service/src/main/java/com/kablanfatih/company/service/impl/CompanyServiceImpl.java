@@ -34,8 +34,6 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional
     public CompanyDto getById(Long id) {
         Company company = repository.getOne(id);
-        System.out.println("company");
-        System.out.println(company);
         return modelMapper.map(company, CompanyDto.class);
     }
 

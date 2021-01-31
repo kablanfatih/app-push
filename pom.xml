@@ -7,7 +7,7 @@
     <groupId>com.kablanfatih</groupId>
     <artifactId>apppush</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,18 +15,31 @@
         <version>2.2.0.RELEASE</version>
         <relativePath/>
     </parent>
+
     <name>apppush</name>
     <description>This project sends notifications to mobile applications</description>
 
+    <properties>
+        <java.version>11</java.version>
+        <spring.cloud.version>Hoxton.RELEASE</spring.cloud.version>
+    </properties>
+
     <modules>
         <module>company-service</module>
+        <module>service-parent</module>
+        <module>config-server</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
