@@ -1,5 +1,7 @@
 package com.kablanfatih.content.entity;
 
+import lombok.Getter;
+
 public enum ContentStatus {
 
     DRAFT("TASLAK"),
@@ -8,6 +10,7 @@ public enum ContentStatus {
     IN_PROGRESS("GÖNDERİLİYOR"),
     COMPLETED("TAMAMLANDI");
 
+    @Getter
     private String label;
 
     ContentStatus(String label){
