@@ -5,7 +5,7 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/microservice
+          search-locations: classpath:/apppush
 
   profiles:
     active: native
