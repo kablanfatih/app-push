@@ -19,7 +19,7 @@ public class Content extends Auditable<String> {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id")
-    private UUID id;
+    private String id;
 
     @Getter
     @Setter

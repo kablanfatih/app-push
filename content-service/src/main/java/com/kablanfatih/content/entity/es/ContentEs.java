@@ -7,18 +7,17 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Document(indexName = "tickets")
+@Document(indexName = "contents")
 public class ContentEs implements Serializable {
 
     @Id
-    private UUID id;
+    private String id;
 
     private String title;
 
@@ -30,5 +29,5 @@ public class ContentEs implements Serializable {
 
     private Date sendDate;
 
-    private ContentStatus contentStatus;
+    private String contentStatus;
 }

@@ -8,10 +8,9 @@ import java.util.Optional;
 @Configuration
 public class JpaAuditingConfiguration implements AuditorAware<String> {
 
+
     @Override
     public Optional<String> getCurrentAuditor() {
-
-        // Just return a string representing the username
-        return Optional.ofNullable("Content Service").filter(s -> !s.isEmpty());
+        return Optional.empty();
     }
 }
