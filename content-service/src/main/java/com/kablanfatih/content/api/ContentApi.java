@@ -27,9 +27,9 @@ public class ContentApi {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentDto contentDto){
-        return ResponseEntity.ok(service.save(contentDto));
+    @PostMapping("/{companyId}")
+    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentDto contentDto, @PathVariable("companyId") Long companyId){
+        return ResponseEntity.ok(service.save(contentDto, companyId));
     }
 
     @PutMapping("/{id}")

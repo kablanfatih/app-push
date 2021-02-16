@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ContentService {
 
-    ContentDto save(ContentDto contentDto);
+    ContentDto save(ContentDto contentDto, Long companyId);
 
     ContentDto update(String id, ContentDto contentDto);
 

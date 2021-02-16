@@ -3,3 +3,4 @@
 /config-server/target/
 /eureka-server/target/classes/
 /content-service/target/classes/
+/service-common/target/classes/com/kablanfatih/servicecommon/

@@ -1,5 +1,6 @@
 package com.kablanfatih.company.dto;
 
+import com.kablanfatih.servicecommon.contract.CompanyDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

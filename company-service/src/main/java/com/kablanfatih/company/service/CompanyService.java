@@ -1,7 +1,7 @@
 package com.kablanfatih.company.service;
 
-import com.kablanfatih.company.dto.CompanyDto;
 import com.kablanfatih.company.util.TPage;
+import com.kablanfatih.servicecommon.contract.CompanyDto;
 import org.springframework.data.domain.Pageable;
 
 public interface CompanyService {

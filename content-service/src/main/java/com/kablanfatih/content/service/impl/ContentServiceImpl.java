@@ -7,6 +7,8 @@ import com.kablanfatih.content.entity.es.ContentEs;
 import com.kablanfatih.content.repository.ContentRepository;
 import com.kablanfatih.content.repository.es.ContentElasticRepository;
 import com.kablanfatih.content.service.ContentService;
+import com.kablanfatih.servicecommon.client.CompanyServiceClient;
+import com.kablanfatih.servicecommon.contract.CompanyDto;
 import lombok.RequiredArgsConstructor;
 import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -14,6 +16,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,16 +29,20 @@ public class ContentServiceImpl implements ContentService {
     private final ContentRepository repository;
     private final ContentElasticRepository esRepository;
     private final ModelMapper modelMapper;
+    private final CompanyServiceClient companyServiceClient;
 
     @Override
-    public ContentDto save(ContentDto contentDto) {
+    public ContentDto save(ContentDto contentDto, Long companyId) {
         //TODO get segmentation from Company service
+        ResponseEntity<CompanyDto> companyDtoResponseEntity = companyServiceClient.getById(companyId);
+
         Content content = new Content();
         content.setTitle(contentDto.getTitle());
         content.setDescription(contentDto.getDescription());
         content.setImage(contentDto.getImage());
         content.setSendDate(contentDto.getSendDate());
         content.setContentStatus(ContentStatus.valueOf(contentDto.getContentStatus()));
+        content.setSegmentation(companyDtoResponseEntity.getBody().getAppId());
         content = repository.save(content);
         saveEs(content);
         return modelMapper.map(content, ContentDto.class);
@@ -85,7 +92,8 @@ public class ContentServiceImpl implements ContentService {
                 .description(content.getDescription())
                 .image(content.getImage())
                 .sendDate(content.getSendDate())
-                .contentStatus(content.getContentStatus().getLabel()).build();
+                .contentStatus(content.getContentStatus().getLabel())
+                .segmentation(content.getSegmentation()).build();
 
         esRepository.save(contentEs);
     }

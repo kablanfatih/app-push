@@ -30,6 +30,7 @@
         <module>config-server</module>
         <module>eureka-server</module>
         <module>content-service</module>
+        <module>service-common</module>
     </modules>
 
     <dependencyManagement>

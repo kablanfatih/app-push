@@ -1,9 +1,9 @@
 package com.kablanfatih.company.controller;
 
-import com.kablanfatih.company.dto.CompanyDto;
 import com.kablanfatih.company.repository.CompanyRepository;
 import com.kablanfatih.company.service.CompanyService;
 import com.kablanfatih.company.util.TPage;
+import com.kablanfatih.servicecommon.contract.CompanyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

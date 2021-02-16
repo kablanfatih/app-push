@@ -1,10 +1,10 @@
 package com.kablanfatih.company.service.impl;
 
-import com.kablanfatih.company.dto.CompanyDto;
 import com.kablanfatih.company.entity.Company;
 import com.kablanfatih.company.repository.CompanyRepository;
 import com.kablanfatih.company.service.CompanyService;
 import com.kablanfatih.company.util.TPage;
+import com.kablanfatih.servicecommon.contract.CompanyDto;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
