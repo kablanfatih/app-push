@@ -6,6 +6,7 @@ import com.kablanfatih.content.entity.ContentStatus;
 import com.kablanfatih.content.entity.es.ContentEs;
 import com.kablanfatih.content.repository.ContentRepository;
 import com.kablanfatih.content.repository.es.ContentElasticRepository;
+import com.kablanfatih.content.service.ContentNotificationService;
 import com.kablanfatih.content.service.ContentService;
 import com.kablanfatih.servicecommon.client.CompanyServiceClient;
 import com.kablanfatih.servicecommon.contract.CompanyDto;
@@ -30,6 +31,7 @@ public class ContentServiceImpl implements ContentService {
     private final ContentElasticRepository esRepository;
     private final ModelMapper modelMapper;
     private final CompanyServiceClient companyServiceClient;
+    private final ContentNotificationService contentNotificationService;
 
     @Override
     public ContentDto save(ContentDto contentDto, Long companyId) {
@@ -45,6 +47,7 @@ public class ContentServiceImpl implements ContentService {
         content.setSegmentation(companyDtoResponseEntity.getBody().getAppId());
         content = repository.save(content);
         saveEs(content);
+        contentNotificationService.sendToQueue(content, companyId);
         return modelMapper.map(content, ContentDto.class);
     }
 

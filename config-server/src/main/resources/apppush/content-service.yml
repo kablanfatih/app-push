@@ -2,6 +2,17 @@ server:
   port: 8882
 
 spring:
+  application:
+    name: content-service
+  rabbitmq:
+    username: root
+    password: root
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: apppush
+
   datasource:
     url: jdbc:mysql://localhost:3306/apppush
     username: root

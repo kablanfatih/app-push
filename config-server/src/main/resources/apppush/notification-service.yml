@@ -1,0 +1,19 @@
+server:
+  port: 8883
+
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    username: root
+    password: root
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: apppush
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
