@@ -4,3 +4,6 @@
 /eureka-server/target/classes/
 /content-service/target/classes/
 /service-common/target/classes/com/kablanfatih/servicecommon/
+/notification-service/target/classes/
+/gateway-server/target/classes/
+/hystrix/target/classes/
