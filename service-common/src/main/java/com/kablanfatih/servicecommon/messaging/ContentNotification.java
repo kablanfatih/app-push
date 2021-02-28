@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ContentNotification {
 
-    private Long companyId;
+    private String appId;
     private String contentId;
     private String contentTitle;
 }
