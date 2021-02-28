@@ -35,8 +35,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public ContentDto save(ContentDto contentDto, Long companyId) {
-        //TODO get segmentation from Company service
+
         ResponseEntity<CompanyDto> companyDtoResponseEntity = companyServiceClient.getById(companyId);
+        String appId = companyDtoResponseEntity.getBody().getAppId();
 
         Content content = new Content();
         content.setTitle(contentDto.getTitle());
@@ -44,10 +45,9 @@ public class ContentServiceImpl implements ContentService {
         content.setImage(contentDto.getImage());
         content.setSendDate(contentDto.getSendDate());
         content.setContentStatus(ContentStatus.valueOf(contentDto.getContentStatus()));
-        content.setSegmentation(companyDtoResponseEntity.getBody().getAppId());
         content = repository.save(content);
         saveEs(content);
-        contentNotificationService.sendToQueue(content, companyId);
+        contentNotificationService.sendToQueue(content, appId);
         return modelMapper.map(content, ContentDto.class);
     }
 
@@ -95,8 +95,7 @@ public class ContentServiceImpl implements ContentService {
                 .description(content.getDescription())
                 .image(content.getImage())
                 .sendDate(content.getSendDate())
-                .contentStatus(content.getContentStatus().getLabel())
-                .segmentation(content.getSegmentation()).build();
+                .contentStatus(content.getContentStatus().getLabel()).build();
 
         esRepository.save(contentEs);
     }
@@ -120,7 +119,6 @@ public class ContentServiceImpl implements ContentService {
         QueryBuilder queryBuilder = QueryBuilders.multiMatchQuery(word)
                 .field("title")
                 .field("description")
-                .field("segmentation")
                 .field("contentStatus")
                 .type(MultiMatchQueryBuilder.Type.PHRASE_PREFIX);
         return esRepository.search(queryBuilder, pageable);

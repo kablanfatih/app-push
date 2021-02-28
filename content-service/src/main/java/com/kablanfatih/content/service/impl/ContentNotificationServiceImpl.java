@@ -17,12 +17,12 @@ public class ContentNotificationServiceImpl implements ContentNotificationServic
     private final Source source;
 
     @Override
-    public void sendToQueue(Content notification, Long companyId) {
+    public void sendToQueue(Content content, String appId) {
 
         ContentNotification contentNotification = new ContentNotification();
-        contentNotification.setCompanyId(companyId);
-        contentNotification.setContentId(notification.getId());
-        contentNotification.setContentTitle(notification.getTitle());
+        contentNotification.setAppId(appId);
+        contentNotification.setContentId(content.getId());
+        contentNotification.setContentTitle(content.getTitle());
         source.output().send(MessageBuilder.withPayload(contentNotification).build());
     }
 }

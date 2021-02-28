@@ -38,11 +38,6 @@ public class Content extends Auditable<String> {
 
     @Getter
     @Setter
-    @Column(name = "segmentation")
-    private String segmentation;
-
-    @Getter
-    @Setter
     @Column(name = "send_date")
     private Date sendDate;
 

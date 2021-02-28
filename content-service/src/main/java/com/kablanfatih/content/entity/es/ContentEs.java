@@ -25,8 +25,6 @@ public class ContentEs implements Serializable {
 
     private String image;
 
-    private String segmentation;
-
     private Date sendDate;
 
     private String contentStatus;

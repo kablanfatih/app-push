@@ -4,5 +4,5 @@ import com.kablanfatih.content.entity.Content;
 
 public interface ContentNotificationService {
 
-    void sendToQueue(Content notification, Long companyId);
+    void sendToQueue(Content notification, String appId);
 }

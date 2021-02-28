@@ -1,6 +1,5 @@
 package com.kablanfatih.content.dto;
 
-import com.kablanfatih.content.entity.ContentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +19,6 @@ public class ContentDto {
     private String description;
 
     private String image;
-
-    private String segmentation;
 
     private Date sendDate;
 
