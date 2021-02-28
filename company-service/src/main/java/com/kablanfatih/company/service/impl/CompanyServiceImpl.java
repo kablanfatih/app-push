@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -62,5 +64,14 @@ public class CompanyServiceImpl implements CompanyService {
     public Boolean delete(Long id) {
         repository.deleteById(id);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public List<String>getUsersTokenByAppId(String appId) {
+        Company company = repository.findByAppId(appId);
+        List<String> usersToken = new ArrayList<String>();
+        company.getUsers().forEach(user -> usersToken.add(user.getAppToken()));
+        return usersToken;
+
     }
 }

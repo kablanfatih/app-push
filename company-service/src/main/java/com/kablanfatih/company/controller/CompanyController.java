@@ -12,6 +12,7 @@ import com.kablanfatih.company.util.ApiPaths;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(ApiPaths.Company.PATH)
@@ -46,5 +47,10 @@ public class CompanyController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.delete(id));
+    }
+
+    @GetMapping("/user/token/{appId}")
+    public ResponseEntity<List<String>> getUsersTokenByAppId(@PathVariable("appId") String appId) {
+        return ResponseEntity.ok(service.getUsersTokenByAppId(appId));
     }
 }
