@@ -1,10 +1,9 @@
 package com.kablanfatih.servicecommon.contract;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyDto {
