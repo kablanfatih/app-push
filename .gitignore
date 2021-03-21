@@ -7,3 +7,4 @@
 /notification-service/target/classes/
 /gateway-server/target/classes/
 /hystrix/target/classes/
+/company-service/target/test-classes/

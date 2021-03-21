@@ -51,6 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Transactional
     public CompanyDto update(Long id, CompanyDto companyDto) {
         Company company = repository.getOne(id);
         company.setName(companyDto.getName());
@@ -67,6 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    @Transactional
     public List<String>getUsersTokenByAppId(String appId) {
         Company company = repository.findByAppId(appId);
         List<String> usersToken = new ArrayList<String>();
