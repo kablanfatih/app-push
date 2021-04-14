@@ -8,3 +8,11 @@
 /gateway-server/target/classes/
 /hystrix/target/classes/
 /company-service/target/test-classes/
+/devops/.idea/
+/company-service/target/
+/content-service/target/
+/eureka-server/target/
+/gateway-server/target/
+/hystrix/target/
+/notification-service/target/
+/service-common/target/
