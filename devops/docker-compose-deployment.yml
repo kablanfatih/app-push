@@ -1,0 +1,140 @@
+version: '3.1'
+
+networks:
+  kablanfatih:
+
+services:
+
+  # Local Services -----------------------
+
+  app-company-service:
+    image: company:latest
+    container_name: app-company-service
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      CONFIG_SERVER_URL: http://app-config-server:8888
+      DB_USERNAME: postgres
+      DB_PASS: postgres
+    ports:
+      - '8881:8881'
+
+  app-content-service:
+    image: content:latest
+    container_name: app-content-service
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      CONFIG_SERVER_URL: http://app-config-server:8888
+    ports:
+      - '8882:8882'
+
+  app-notification-service:
+    image: notification:latest
+    container_name: app-notification-service
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      CONFIG_SERVER_URL: http://app-config-server:8888
+    ports:
+      - '8883:8883'
+
+  # System Services -----------------------
+  app-config-server:
+    image: config:latest
+    container_name: app-config-server
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      CONFIG_SERVER_URL: http://config-server:8888
+      SERVER_PORT: 8888
+    ports:
+      - '8888:8888'
+
+  app-eureka-server:
+    image: eureka:latest
+    container_name: app-eureka-server
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      CONFIG_SERVER_URL: http://app-config-server:8888
+      SERVER_PORT: 8761
+    ports:
+      - '8761:8761'
+
+  app-gateway-server:
+    image: gateway:latest
+    container_name: app-gateway-server
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      EUREKA_SERVICE_URL: http://app-eureka-server:8888
+      SERVER_PORT: 8880
+    ports:
+      - '8880:8880'
+
+  hk-hystrix-dashboard:
+    image: hystrix:latest
+    container_name: app-hystrix
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      EUREKA_SERVICE_URL: http://app-eureka-server:8888
+      SERVER_PORT: 8884
+    ports:
+      - '8884:8884'
+
+
+  postgres:
+    image: postgres
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+
+  mysql:
+    image: mysql:8.0.23
+    restart: always
+    networks:
+      - kablanfatih
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+
+    #  adminer:
+    #   image: adminer
+    #  restart: always
+    # ports:
+    #  - 8880:8880
+
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    networks:
+      - kablanfatih
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      discovery.type: single-node
+
+  msrabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      - kablanfatih
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root

@@ -73,29 +73,7 @@ public class CompanyServiceImplTest {
 
     }
 
-    @Test
-    void getAllPageableTest() {
 
-        CompanyDto companyDto2 = new CompanyDto();
-        companyDto2.setName("name2");
-        companyDto2.setAddress("address2");
-        companyDto2.setAppId("qwe123");
-
-        PageRequest pageRequest = PageRequest.of(1, 10);
-        List<CompanyDto> data = Arrays.asList(companyDto, companyDto2);
-        Page<CompanyDto> page = new PageImpl<>(data);
-        TPage<CompanyDto> pages1 = new TPage<>();
-        CompanyDto[] dtos = modelMapper.map(page.getContent(), CompanyDto[].class);
-        System.out.println("cont: " +page.getContent());
-        when(modelMapper.map(any(), any())).thenReturn(dtos);
-
-        System.out.println("dtos: " + dtos);
-        pages1.setStat(page, Arrays.asList(dtos));
-        when(service.getAllPageable(pageRequest)).thenReturn(pages1);
-        TPage<CompanyDto> result = service.getAllPageable(pageRequest);
-
-        assertEquals(result.getContent().get(0).getName(), companyDto.getName());
-    }
 
     @Test
     public void testUpdate() {
@@ -126,21 +104,5 @@ public class CompanyServiceImplTest {
 
     }
 
-    @Test
-    public void testGetUsersTokenByAppId(){
-        List<User> users = new ArrayList<>();
-        List<String> tokens = new ArrayList<>();
-        Company company = new Company();
-        users.add(user);
-        company.setUsers(users);
-        tokens.add(user.getAppToken());
 
-        when(repository.findByAppId(company.getAppId())).thenReturn(company);
-        when(service.getUsersTokenByAppId(company.getAppId())).thenReturn(tokens);
-        List<String> result = service.getUsersTokenByAppId(company.getAppId());
-        System.out.println(result);
-        //assertEquals(result.get(0). ,users.get(0).getAppToken());
-
-
-    }
 }

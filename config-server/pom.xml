@@ -6,7 +6,6 @@
         <artifactId>apppush</artifactId>
         <groupId>com.kablanfatih</groupId>
         <version>0.0.1</version>
-        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
