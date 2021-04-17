@@ -15,16 +15,16 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 import java.util.List;
 
-//@EnableBinding(Sink.class)
+@EnableBinding(Sink.class)
 @RequiredArgsConstructor
-//@ComponentScan("com.kablanfatih")
+@ComponentScan("com.kablanfatih")
 @Service
 public class NotificationService {
 
-    //private final CompanyServiceClient companyServiceClient;
+    private final CompanyServiceClient companyServiceClient;
     private final RestTemplate restTemplate;
 
-   /* @StreamListener(Sink.INPUT)
+    @StreamListener(Sink.INPUT)
     public void onNotification(ContentNotification notification) {
         ResponseEntity<List<String>> getUsersToken = companyServiceClient.getUsersTokenByAppId(notification.getAppId());
 
@@ -34,7 +34,7 @@ public class NotificationService {
         System.out.println("USERSSSSS");
         System.out.println(getUsersToken.getBody());
 
-    }*/
+    }
 
     public String sendNotification() {
 
