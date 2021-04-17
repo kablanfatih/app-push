@@ -25,5 +25,13 @@ jpa:
 
 eureka:
   client:
+    instance:
+      hostname: ${EUREKA_SERVER_HOST:app-eureka-server}
     serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+      defaultZone: ${EUREKA_SERVICE_URL:http://app-eureka-server:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
