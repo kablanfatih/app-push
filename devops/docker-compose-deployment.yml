@@ -28,6 +28,7 @@ services:
       - kablanfatih
     environment:
       CONFIG_SERVER_URL: http://app-config-server:8888
+      ELASTICSEARCH_URL: http://elasticsearch:9200
     ports:
       - '8882:8882'
 

@@ -5,6 +5,8 @@ spring:
   application:
     name: notification-service
   rabbitmq:
+    host: msrabbitmq
+    port: 5672
     username: root
     password: root
   cloud:

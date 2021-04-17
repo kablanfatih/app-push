@@ -5,6 +5,8 @@ spring:
   application:
     name: content-service
   rabbitmq:
+    host: msrabbitmq
+    port: 5672
     username: root
     password: root
   cloud:
@@ -17,6 +19,11 @@ spring:
     url: jdbc:mysql://mysql:3306/apppush
     username: root
     password: root
+
+  elasticsearch:
+    rest:
+      uris: ${ELASTICSEARCH_URL:http://elasticsearch:9200}
+
 jpa:
   database: mysql
   database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
