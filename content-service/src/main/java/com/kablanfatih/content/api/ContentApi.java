@@ -28,8 +28,8 @@ public class ContentApi {
     }
 
     @PostMapping("/{companyId}")
-    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentDto contentDto, @PathVariable("companyId") Long companyId){
-        return ResponseEntity.ok(service.save(contentDto, companyId));
+    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentDto contentDto){
+        return ResponseEntity.ok(service.save(contentDto));
     }
 
     @PutMapping("/{id}")
@@ -58,5 +58,11 @@ public class ContentApi {
     public ResponseEntity<Iterable<ContentEs>> getByTitles(@PathVariable("word") String title, Pageable pageable){
 
         return ResponseEntity.ok(service.findByTitleContains(title, pageable));
+    }
+
+    @GetMapping("send/{companyId}/{contentId}")
+    public ResponseEntity<Boolean> sendContent(@PathVariable("companyId") Long companyId,
+                                                    @PathVariable("contentId") String contentId){
+        return ResponseEntity.ok(service.sendContent(companyId,contentId));
     }
 }

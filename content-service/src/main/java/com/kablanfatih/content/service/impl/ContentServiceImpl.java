@@ -34,10 +34,7 @@ public class ContentServiceImpl implements ContentService {
     private final ContentNotificationService contentNotificationService;
 
     @Override
-    public ContentDto save(ContentDto contentDto, Long companyId) {
-
-        ResponseEntity<CompanyDto> companyDtoResponseEntity = companyServiceClient.getById(companyId);
-        String appId = companyDtoResponseEntity.getBody().getAppId();
+    public ContentDto save(ContentDto contentDto) {
 
         Content content = new Content();
         content.setTitle(contentDto.getTitle());
@@ -47,7 +44,6 @@ public class ContentServiceImpl implements ContentService {
         content.setContentStatus(ContentStatus.valueOf(contentDto.getContentStatus()));
         content = repository.save(content);
         saveEs(content);
-        contentNotificationService.sendToQueue(content, appId);
         return modelMapper.map(content, ContentDto.class);
     }
 
@@ -132,5 +128,14 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public Iterable<ContentEs> findByTitleContains(String title, Pageable pageable) {
         return esRepository.findByTitleContains(title, pageable);
+    }
+
+    @Override
+    public Boolean sendContent(Long companyId, String contentId){
+        ResponseEntity<CompanyDto> companyDtoResponseEntity = companyServiceClient.getById(companyId);
+        String appId = companyDtoResponseEntity.getBody().getAppId();
+        Content content = repository.getOne(contentId);
+        contentNotificationService.sendToQueue(content, appId);
+        return true;
     }
 }

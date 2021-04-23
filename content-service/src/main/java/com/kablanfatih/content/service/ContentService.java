@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ContentService {
 
-    ContentDto save(ContentDto contentDto, Long companyId);
+    ContentDto save(ContentDto contentDto);
 
     ContentDto update(String id, ContentDto contentDto);
 
@@ -23,4 +23,6 @@ public interface ContentService {
     Iterable<ContentEs> findByTitle(String title);
 
     Iterable<ContentEs> findByTitleContains(String title, Pageable pageable);
+
+    Boolean sendContent(Long companyId, String contentId);
 }
