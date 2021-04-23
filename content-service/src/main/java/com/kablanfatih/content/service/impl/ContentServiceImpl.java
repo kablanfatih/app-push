@@ -42,6 +42,7 @@ public class ContentServiceImpl implements ContentService {
         content.setImage(contentDto.getImage());
         content.setSendDate(contentDto.getSendDate());
         content.setContentStatus(ContentStatus.valueOf(contentDto.getContentStatus()));
+        content.setCompanyId(contentDto.getCompanyId());
         content = repository.save(content);
         saveEs(content);
         return modelMapper.map(content, ContentDto.class);
@@ -68,8 +69,8 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<ContentDto> getAll(Pageable pageable) {
-        Slice<Content> contents = repository.findAll(pageable);
+    public List<ContentDto> getAll(Long companyId, Pageable pageable) {
+        Slice<Content> contents = repository.findAllByCompanyId(companyId, pageable);
         return contents
                 .stream()
                 .map(element -> modelMapper.map(element, ContentDto.class))
@@ -91,7 +92,9 @@ public class ContentServiceImpl implements ContentService {
                 .description(content.getDescription())
                 .image(content.getImage())
                 .sendDate(content.getSendDate())
-                .contentStatus(content.getContentStatus().getLabel()).build();
+                .contentStatus(content.getContentStatus().getLabel())
+                .companyId(content.getCompanyId())
+                .build();
 
         esRepository.save(contentEs);
     }
@@ -121,13 +124,13 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Iterable<ContentEs> findByTitle(String title) {
-        return esRepository.findByTitle(title);
+    public Iterable<ContentEs> findByTitle(String title, Long companyId) {
+        return esRepository.findByTitleAndCompanyId(title, companyId);
     }
 
     @Override
-    public Iterable<ContentEs> findByTitleContains(String title, Pageable pageable) {
-        return esRepository.findByTitleContains(title, pageable);
+    public Iterable<ContentEs> findByTitleContains(String title, Pageable pageable, Long companyId) {
+        return esRepository.findByTitleContainsAndCompanyId(title, pageable, companyId);
     }
 
     @Override

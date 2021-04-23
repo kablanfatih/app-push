@@ -17,9 +17,9 @@ public class ContentApi {
 
     public final ContentService service;
 
-    @GetMapping
-    public ResponseEntity<List<ContentDto>> getAll(Pageable pageable){
-        return ResponseEntity.ok(service.getAll(pageable));
+    @GetMapping("pagination/{companyId}")
+    public ResponseEntity<List<ContentDto>> getAll(@PathVariable("companyId") Long companyId, Pageable pageable){
+        return ResponseEntity.ok(service.getAll(companyId, pageable));
     }
 
     @GetMapping("/{id}")
@@ -48,16 +48,16 @@ public class ContentApi {
         return ResponseEntity.ok(service.search(word, pageable));
     }
 
-    @GetMapping("title/{title}")
-    public ResponseEntity<Iterable<ContentEs>> getByTitle(@PathVariable("title") String title){
+    @GetMapping("title/{companyId}/{title}")
+    public ResponseEntity<Iterable<ContentEs>> getByTitle(@PathVariable("title") String title, @PathVariable("companyId") Long companyId){
 
-        return ResponseEntity.ok(service.findByTitle(title));
+        return ResponseEntity.ok(service.findByTitle(title, companyId));
     }
 
-    @GetMapping("search/title/{word}")
-    public ResponseEntity<Iterable<ContentEs>> getByTitles(@PathVariable("word") String title, Pageable pageable){
+    @GetMapping("search/title/{companyId}/{word}")
+    public ResponseEntity<Iterable<ContentEs>> getByTitles(@PathVariable("word") String title, @PathVariable("companyId") Long companyId, Pageable pageable){
 
-        return ResponseEntity.ok(service.findByTitleContains(title, pageable));
+        return ResponseEntity.ok(service.findByTitleContains(title, pageable, companyId));
     }
 
     @GetMapping("send/{companyId}/{contentId}")

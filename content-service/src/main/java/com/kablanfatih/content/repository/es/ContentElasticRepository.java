@@ -7,8 +7,8 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 
 public interface ContentElasticRepository extends ElasticsearchRepository<ContentEs, String> {
 
-    Iterable<ContentEs> findByTitle(String title);
+    Iterable<ContentEs> findByTitleAndCompanyId(String title, Long companyId);
 
-    Page<ContentEs> findByTitleContains(String title, Pageable pageable);
+    Page<ContentEs> findByTitleContainsAndCompanyId(String title, Pageable pageable, Long companyId);
 
 }

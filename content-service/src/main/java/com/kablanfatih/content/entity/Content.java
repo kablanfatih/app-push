@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "contents")
@@ -46,4 +45,9 @@ public class Content extends Auditable<String> {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "content_status")
     private ContentStatus contentStatus;
+
+    @Getter
+    @Setter
+    @Column(name = "company_id",nullable = false)
+    private Long companyId;
 }

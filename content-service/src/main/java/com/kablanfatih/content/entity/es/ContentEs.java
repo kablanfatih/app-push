@@ -1,6 +1,5 @@
 package com.kablanfatih.content.entity.es;
 
-import com.kablanfatih.content.entity.ContentStatus;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -28,4 +27,6 @@ public class ContentEs implements Serializable {
     private Date sendDate;
 
     private String contentStatus;
+
+    private Long companyId;
 }
