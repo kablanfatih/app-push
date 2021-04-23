@@ -1,0 +1,44 @@
+server:
+  port: 8882
+
+spring:
+  application:
+    name: content-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: apppush
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/apppush
+    username: root
+    password: root
+
+  elasticsearch:
+    rest:
+      uris: ${ELASTICSEARCH_URL:http://localhost:9200}
+
+jpa:
+  database: mysql
+  database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  hibernate:
+    ddl-auto: update
+
+eureka:
+  client:
+    instance:
+      hostname: ${EUREKA_SERVER_HOST:localhost}
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761/eureka/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
