@@ -2,13 +2,14 @@ package com.kablanfatih.content.service;
 
 import com.kablanfatih.content.dto.ContentDto;
 import com.kablanfatih.content.entity.es.ContentEs;
+import com.kablanfatih.content.request.ContentRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface ContentService {
 
-    ContentDto save(ContentDto contentDto);
+    ContentDto save(ContentRequest contentRequest);
 
     ContentDto update(String id, ContentDto contentDto);
 

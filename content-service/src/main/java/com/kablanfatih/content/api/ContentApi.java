@@ -2,6 +2,7 @@ package com.kablanfatih.content.api;
 
 import com.kablanfatih.content.dto.ContentDto;
 import com.kablanfatih.content.entity.es.ContentEs;
+import com.kablanfatih.content.request.ContentRequest;
 import com.kablanfatih.content.service.ContentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -27,9 +28,9 @@ public class ContentApi {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    @PostMapping("/{companyId}")
-    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentDto contentDto){
-        return ResponseEntity.ok(service.save(contentDto));
+    @PostMapping
+    public ResponseEntity<ContentDto> create(@Valid @RequestBody ContentRequest contentRequest){
+        return ResponseEntity.ok(service.save(contentRequest));
     }
 
     @PutMapping("/{id}")

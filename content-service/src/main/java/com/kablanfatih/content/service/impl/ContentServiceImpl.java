@@ -6,6 +6,7 @@ import com.kablanfatih.content.entity.ContentStatus;
 import com.kablanfatih.content.entity.es.ContentEs;
 import com.kablanfatih.content.repository.ContentRepository;
 import com.kablanfatih.content.repository.es.ContentElasticRepository;
+import com.kablanfatih.content.request.ContentRequest;
 import com.kablanfatih.content.service.ContentNotificationService;
 import com.kablanfatih.content.service.ContentService;
 import com.kablanfatih.servicecommon.client.CompanyServiceClient;
@@ -34,15 +35,15 @@ public class ContentServiceImpl implements ContentService {
     private final ContentNotificationService contentNotificationService;
 
     @Override
-    public ContentDto save(ContentDto contentDto) {
+    public ContentDto save(ContentRequest contentRequest) {
 
         Content content = new Content();
-        content.setTitle(contentDto.getTitle());
-        content.setDescription(contentDto.getDescription());
-        content.setImage(contentDto.getImage());
-        content.setSendDate(contentDto.getSendDate());
-        content.setContentStatus(ContentStatus.valueOf(contentDto.getContentStatus()));
-        content.setCompanyId(contentDto.getCompanyId());
+        content.setTitle(contentRequest.getTitle());
+        content.setDescription(contentRequest.getDescription());
+        content.setImage(contentRequest.getImage());
+        content.setSendDate(contentRequest.getSendDate());
+        content.setContentStatus(ContentStatus.valueOf(contentRequest.getContentStatus()));
+        content.setCompanyId(contentRequest.getCompanyId());
         content = repository.save(content);
         saveEs(content);
         return modelMapper.map(content, ContentDto.class);
