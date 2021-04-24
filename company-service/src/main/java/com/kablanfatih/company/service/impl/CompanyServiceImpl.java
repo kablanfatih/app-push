@@ -42,6 +42,12 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     public CompanyDto save(CompanyDto companyDto) {
+
+        Company appIdCheck = repository.findByAppId(companyDto.getAppId());
+
+        if (appIdCheck != null)
+            throw new IllegalArgumentException("App Id Already Exists");
+
         Company company = new Company();
         company.setName(companyDto.getName());
         company.setAddress(companyDto.getAddress());

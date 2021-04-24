@@ -24,7 +24,7 @@ public class Company extends Auditable<String> {
     @Column(name = "address", length = 1000)
     private String address;
 
-    @Column(name = "app_id")
+    @Column(name = "app_id", unique = true)
     private String appId;
 
     @JoinColumn(name = "company")
